@@ -80,7 +80,7 @@ public class SecurityConfig {
   @Bean
   public UserDetailsService userDetailsService() {
     UserDetails userDetails = User.withDefaultPasswordEncoder()
-        .username("user")
+        .username("admin")
         .password("password")
         .roles("USER")
         .build();
@@ -92,18 +92,18 @@ public class SecurityConfig {
   @Bean
   public RegisteredClientRepository registeredClientRepository() {
     RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-        .clientId("messaging-client")
-        .clientSecret("{noop}secret")
+        .clientId("usuarios-client")
+        .clientSecret("{noop}password")
         .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
         .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
         .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
         .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-        .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-        .redirectUri("http://127.0.0.1:8080/authorized")
+        .redirectUri("http://127.0.0.1:8081/login/oauth2/code/ms-usuarios-client")
+        .redirectUri("http://127.0.0.1:8081/authorized")
         .scope(OidcScopes.OPENID)
         .scope(OidcScopes.PROFILE)
-        .scope("message.read")
-        .scope("message.write")
+        .scope("read")
+        .scope("write")
         .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
         .build();
 
